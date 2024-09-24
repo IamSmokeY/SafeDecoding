@@ -12,7 +12,6 @@ def load_model_and_tokenizer(model_path, FP16 = True, tokenizer_path=None, devic
     if FP16:
         model = AutoModelForCausalLM.from_pretrained(
                 model_path,
-                device_map="auto",
                 torch_dtype=torch.float16,
                 trust_remote_code=True,
                 **kwargs
@@ -20,7 +19,6 @@ def load_model_and_tokenizer(model_path, FP16 = True, tokenizer_path=None, devic
     else:
         model = AutoModelForCausalLM.from_pretrained(
                 model_path,
-                device_map="auto",
                 trust_remote_code=True,
                 **kwargs
             ).eval()
