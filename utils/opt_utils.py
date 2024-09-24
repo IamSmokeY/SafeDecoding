@@ -15,13 +15,13 @@ def load_model_and_tokenizer(model_path, FP16 = True, tokenizer_path=None, devic
                 torch_dtype=torch.float16,
                 trust_remote_code=True,
                 **kwargs
-            ).eval()
+            ).to(device).eval()
     else:
         model = AutoModelForCausalLM.from_pretrained(
                 model_path,
                 trust_remote_code=True,
                 **kwargs
-            ).eval()
+            ).to(device).eval()
 
     if model_path == "timdettmers/guanaco-13b-merged":
         tokenizer_path = "huggyllama/llama-7b"
