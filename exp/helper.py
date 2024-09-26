@@ -26,6 +26,7 @@ class LLM:
                        do_sample=do_sample,
                        device=device) 
         self.model = PeftModel.from_pretrained(model, "./lora_modules/"+model_name, adapter_name="expert")
+        print(self.model.generation_config)
         self.conv_template = load_conversation_template(self.template_name)
         # Initialize contrastive decoder
         self.safe_decoder = SafeDecoding(model, 
@@ -42,5 +43,6 @@ class LLM:
             instruction=prompt,
             whitebox_attacker=True)
         inputs = input_manager.get_inputs()
-        outputs, output_length = self.safe_decoder.safedecoding_lora(inputs, None)
+        print(inputs)
+        outputs, output_length = self.safe_decoder.safedecoding_lora(inputs, self.model.generation_config)
         return outputs
