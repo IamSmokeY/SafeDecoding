@@ -25,7 +25,7 @@ class LLM:
                        use_cache=use_cache,
                        do_sample=do_sample,
                        device=device) 
-        self.model = PeftModel.from_pretrained(model, "../lora_modules/"+model_name, adapter_name="expert")
+        self.model = PeftModel.from_pretrained(model, "./lora_modules/"+model_name, adapter_name="expert")
         self.conv_template = load_conversation_template(self.template_name)
         # Initialize contrastive decoder
         self.safe_decoder = SafeDecoding(model, 
