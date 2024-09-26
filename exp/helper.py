@@ -14,17 +14,19 @@ class LLM:
                  do_sample=False):
         
         if model_name == "llama2":
-            model_name = "meta-llama/Llama-2-7b-chat-hf"
-        template_name = 'llama-2'
+            self.model_name = "meta-llama/Llama-2-7b-chat-hf"
+            self.template_name = 'llama-2'
+        else:
+            raise ValueError("Only 'llama2' is supported as the model name.")
 
-        model, self.tokenizer = load_model_and_tokenizer(model_name, 
+        model, self.tokenizer = load_model_and_tokenizer(self.model_name, 
                        FP16=FP16,
                        low_cpu_mem_usage=low_cpu_mem_usage,
                        use_cache=use_cache,
                        do_sample=do_sample,
-                       device=device)
+                       device=device) 
         self.model = PeftModel.from_pretrained(model, "../lora_modules/"+model_name, adapter_name="expert")
-        self.conv_template = load_conversation_template(template_name)
+        self.conv_template = load_conversation_template(self.template_name)
         # Initialize contrastive decoder
         self.safe_decoder = SafeDecoding(model, 
                                           self.tokenizer, 
