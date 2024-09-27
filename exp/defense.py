@@ -105,7 +105,7 @@ model, tokenizer = load_model_and_tokenizer(model_name,
                        device=device)
 
 model = PeftModel.from_pretrained(model, "../lora_modules/"+args.model_name, adapter_name="expert")
-adapter_names = ['base', 'expert']
+
 
 
 # Initialize defenders

@@ -28,10 +28,11 @@ class LLM:
         self.model = PeftModel.from_pretrained(model, "./lora_modules/"+model_name, adapter_name="expert")
         print(self.model.generation_config)
         self.conv_template = load_conversation_template(self.template_name)
+        self.adapter_names = ['base', 'expert']
         # Initialize contrastive decoder
         self.safe_decoder = SafeDecoding(model, 
                                           self.tokenizer, 
-                                          ['base', 'expert'], 
+                                          self.adapter_names, 
                                           alpha=3, 
                                           first_m=2, 
                                           top_k=10, 

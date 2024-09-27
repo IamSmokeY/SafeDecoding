@@ -44,6 +44,7 @@ class SafeDecoding:
             # duplicate inputs for two original and expert model
             inputs_duplicated = {k:v.repeat(2,1) for k,v in inputs.items()}
 
+            print(self.adapter_names)
             outputs = self.model.generate(**inputs_duplicated,
                                     adapter_names=self.adapter_names,
                                     generation_config=gen_config,
