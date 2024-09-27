@@ -38,7 +38,8 @@ class LLM:
                                           num_common_tokens=5,
                                           verbose=True)
     def generate(self, prompt):
-        input_manager = PromptManager(tokenizer=self.tokenizer, 
+        print(prompt)
+        input_manager = PromptManager(tokenizer=self.tokenizer,   
             conv_template=self.conv_template, 
             instruction=prompt,
             whitebox_attacker=True)
