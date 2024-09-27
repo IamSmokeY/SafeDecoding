@@ -39,7 +39,7 @@ class SafeDecoding:
         print(step)
         print(max_token_len)
         print(self.first_m)
-        while step <= min(max_token_len, self.first_m):  # Loop until we reach the first m tokens
+        while step <= min(4096, self.first_m):  # Loop until we reach the first m tokens
             # Generate the next token
             # duplicate inputs for two original and expert model
             inputs_duplicated = {k:v.repeat(2,1) for k,v in inputs.items()}
