@@ -36,15 +36,11 @@ class SafeDecoding:
         input_len = inputs['input_ids'].shape[1]
 
         step = 1  # Keep track of generation steps
-        print(step)
-        print(max_token_len)
-        print(self.first_m)
         while step <= min(4096, self.first_m):  # Loop until we reach the first m tokens
             # Generate the next token
             # duplicate inputs for two original and expert model
             inputs_duplicated = {k:v.repeat(2,1) for k,v in inputs.items()}
 
-            print(self.adapter_names)
             outputs = self.model.generate(**inputs_duplicated,
                                     adapter_names=self.adapter_names,
                                     generation_config=gen_config,
