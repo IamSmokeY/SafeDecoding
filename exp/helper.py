@@ -39,7 +39,7 @@ class SafeDecodingManager:
         self.model, self.tokenizer = self._load_model_and_tokenizer()
         self.adapter_names = ['base', 'expert']
         self.model = PeftModel.from_pretrained(
-            self.model, f"../lora_modules/{self.args.model_name}", adapter_name="expert"
+            self.model, f"../SafeDecoding/lora_modules/{self.args.model_name}", adapter_name="expert"
         )
         self.whitebox_attacker = self.args.attacker in ["GCG", "AutoDAN"]
         self.safe_decoder = SafeDecoding(
